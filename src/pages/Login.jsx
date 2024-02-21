@@ -1,24 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { muiCustomTheme } from "../utils/muiThemeCreator";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormikValidation } from "../validation/Formik";
 import { useMutation } from "@tanstack/react-query";
 import userRequest from "../utils/userRequest";
-import { RegisterSchema } from "../validation/Yup";
+import { LoginSchema } from "../validation/Yup";
 import { toast } from "react-toastify";
-function Register() {
-  const navigate = useNavigate();
+function Login() {
+    const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
 
   const mutation = useMutation({
     mutationFn: (data) => {
-      return userRequest.post("/register", data);
+      return userRequest.post("/login", data);
     },
     onSuccess: (data) => {
-        console.log(data);
       localStorage.setItem("userJWT",data.data.token);
-      toast.success(data.data.message);
+      toast.success(data.data.message)
       navigate("/");
     },
     onError: (error) => {
@@ -26,7 +26,7 @@ function Register() {
     },
   });
 
-  const formik = useFormikValidation(mutation, RegisterSchema, initialValues);
+  const formik = useFormikValidation(mutation, LoginSchema, initialValues);
   const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
     formik;
   return (
@@ -37,7 +37,7 @@ function Register() {
           <div className="flex items-center justify-center mt-16">
             <div className="text-center">
               <h1 className="font-bold text-2xl">
-                Chase Your Goals, Not Just Jobs <br /> Register for Greatness!
+                Chase Your Goals, Not Just Jobs <br /> Login for Greatness!
               </h1>
             </div>
           </div>
@@ -96,11 +96,10 @@ function Register() {
                   type="submit"
                   className="border-2 p-2 rounded-lg w-56 text-white hover:drop-shadow-md bg-blue-500"
                 >
-                  <span style={{ marginRight: "10px" }}>Sign Up</span>
+                  <span style={{ marginRight: "10px" }}>Login</span>
                 </button>
               </div>
-              <span className="text-center">Already have an Account? <Link to="/login" className="text-blue-500" >Login </Link></span>
-
+                  <span className="text-center">Don't have an Account? <Link to="/register" className="text-blue-500" >Signup </Link></span>
             </form>
           </div>
         </div>
@@ -111,4 +110,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
