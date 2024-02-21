@@ -1,11 +1,12 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { muiCustomTheme } from "../utils/muiThemeCreator";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormikValidation } from "../validation/Formik";
 import { useMutation } from "@tanstack/react-query";
 import userRequest from "../utils/userRequest";
 import { RegisterSchema } from "../validation/Yup";
+import { toast } from "react-toastify";
 function Register() {
   const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
@@ -15,6 +16,9 @@ function Register() {
       return userRequest.post("/register", data);
     },
     onSuccess: (data) => {
+        console.log(data);
+      localStorage.setItem("userJWT",data.data.token);
+      toast.success(data.message);
       navigate("/");
     },
     onError: (error) => {
@@ -68,6 +72,7 @@ function Register() {
                   size="small"
                   label="Password"
                   name="password"
+                  type="password"
                   className="w-full"
                   theme={muiCustomTheme}
                   InputProps={{ sx: { borderRadius: 4 } }}
@@ -95,6 +100,8 @@ function Register() {
                   <span style={{ marginRight: "10px" }}>Sign Up</span>
                 </button>
               </div>
+              <span className="text-center">Already have an Account? <Link to="/login" >Login </Link></span>
+
             </form>
           </div>
         </div>
