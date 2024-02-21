@@ -18,7 +18,7 @@ function Login() {
     },
     onSuccess: (data) => {
       localStorage.setItem("userJWT",data.data.token);
-      toast.success(data.message)
+      toast.success(data.data.message)
       navigate("/");
     },
     onError: (error) => {
@@ -33,9 +33,8 @@ function Login() {
     <>
       <div className="flex justify-center bg-F9F9F9 p-4 sm:p-14 lg:h-screen">
         <div className="bg-white lg:rounded-l-xl rounded-l-md border sm:w-1/2">
-        <h1 className="p-4">LOGO</h1>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-16">
             <div className="text-center">
               <h1 className="font-bold text-2xl">
                 Chase Your Goals, Not Just Jobs <br /> Login for Greatness!
@@ -72,6 +71,7 @@ function Login() {
                   size="small"
                   label="Password"
                   name="password"
+                  type="password"
                   className="w-full"
                   theme={muiCustomTheme}
                   InputProps={{ sx: { borderRadius: 4 } }}
@@ -99,7 +99,7 @@ function Login() {
                   <span style={{ marginRight: "10px" }}>Login</span>
                 </button>
               </div>
-                  <span className="text-center">Don't have an Account? <Link to="/register" >Signup </Link></span>
+                  <span className="text-center">Don't have an Account? <Link to="/register" className="text-blue-500" >Signup </Link></span>
             </form>
           </div>
         </div>

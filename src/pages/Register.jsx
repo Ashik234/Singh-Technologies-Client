@@ -18,7 +18,7 @@ function Register() {
     onSuccess: (data) => {
         console.log(data);
       localStorage.setItem("userJWT",data.data.token);
-      toast.success(data.message);
+      toast.success(data.data.message);
       navigate("/");
     },
     onError: (error) => {
@@ -33,9 +33,8 @@ function Register() {
     <>
       <div className="flex justify-center bg-F9F9F9 p-4 sm:p-14 lg:h-screen">
         <div className="bg-white lg:rounded-l-xl rounded-l-md border sm:w-1/2">
-          <h1 className="p-4">LOGO</h1>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-16">
             <div className="text-center">
               <h1 className="font-bold text-2xl">
                 Chase Your Goals, Not Just Jobs <br /> Register for Greatness!
@@ -100,7 +99,7 @@ function Register() {
                   <span style={{ marginRight: "10px" }}>Sign Up</span>
                 </button>
               </div>
-              <span className="text-center">Already have an Account? <Link to="/login" >Login </Link></span>
+              <span className="text-center">Already have an Account? <Link to="/login" className="text-blue-500" >Login </Link></span>
 
             </form>
           </div>
