@@ -1,7 +1,30 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { muiCustomTheme } from "../utils/muiThemeCreator";
+import { useNavigate } from "react-router-dom";
+import { useFormikValidation } from "../validation/Formik";
+import { useMutation } from "@tanstack/react-query";
+import userRequest from "../utils/userRequest";
+import { RegisterSchema } from "../validation/Yup";
 function Register() {
+  const navigate = useNavigate();
+  const initialValues = { email: "", password: "" };
+
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return userRequest.post("/register", data);
+    },
+    onSuccess: (data) => {
+      navigate("/");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const formik = useFormikValidation(mutation, RegisterSchema, initialValues);
+  const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
+    formik;
   return (
     <>
       <div className="flex justify-center bg-F9F9F9 p-4 sm:p-14 lg:h-screen">
@@ -17,19 +40,8 @@ function Register() {
           </div>
 
           <div className="lg:w-96 sm:w-80 mx-auto px-4">
-            <form className="flex flex-col">
+            <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="mt-8">
-                <TextField
-                  name="username"
-                  size="small"
-                  label="Username"
-                  className="w-full"
-                  theme={muiCustomTheme}
-                  InputProps={{ sx: { borderRadius: 4 } }}
-                />
-              </div>
-
-              <div className="mt-4">
                 <TextField
                   size="small"
                   label="Email"
@@ -37,19 +49,42 @@ function Register() {
                   className="w-full"
                   theme={muiCustomTheme}
                   InputProps={{ sx: { borderRadius: 4 } }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={touched.email && errors.email}
                 />
+                <div
+                  className={`${
+                    touched.email && errors.email ? "opacity-100" : "opacity-0"
+                  } text-red-500 text-xs py-1`}
+                >
+                  {errors.email ? errors.email : "None"}
+                </div>
               </div>
 
-              <div className="mt-4 mb-4">
+              <div className="mb-4">
                 <TextField
                   size="small"
                   label="Password"
                   name="password"
-                  type="password"
                   className="w-full"
                   theme={muiCustomTheme}
                   InputProps={{ sx: { borderRadius: 4 } }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  error={touched.password && errors.password}
                 />
+                <div
+                  className={`${
+                    touched.password && errors.password
+                      ? "opacity-100"
+                      : "opacity-0"
+                  } text-red-500 text-xs py-1`}
+                >
+                  {errors.password ? errors.password : "None"}
+                </div>
               </div>
 
               <div className="flex justify-center mb-4">
