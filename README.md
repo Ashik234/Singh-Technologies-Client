@@ -23,13 +23,13 @@ Build a React-Vite dashboard with a Node.js backend, featuring Jwt Authenticatio
 
 4 Environment Variables (Frontend):
 - Create a .env file based on the provided .env.example to configure local environment variables.
-- 
+  
 5 Start API Server
  - Before running this application, set up the and run backend server and make sure it is working properly, otherwise it will lead to errors.
 - start the backend development server by running the following command
 `npm start`
  - This will build the backend and open the development server at http://localhost:8000 (make sure 8000 port is available).
- - 
+   
 6 Start the Development Server (Frontend):
 - After the dependencies are installed, start the frontend development server by running the following command:
 `npm run dev`
