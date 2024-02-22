@@ -39,14 +39,14 @@ function Dashboard() {
           Logout
         </button>
       </div>
-      
+
       <div className="row">
-      <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Wallet Balance</h5>
-              <p className="card-text">0</p>
-            </div>
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title">Wallet Balance</h5>
+            <p className="card-text">0</p>
           </div>
+        </div>
         <div className="col-md-6 mt-4 mb-4">
           <div className="card">
             <div className="card-body">
